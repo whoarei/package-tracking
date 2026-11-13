@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main",
+  "description": "Local main window only; external courier pages receive no Tauri IPC access.",
+  "windows": ["main"],
+  "permissions": ["core:default", "dialog:allow-save"]
+}
