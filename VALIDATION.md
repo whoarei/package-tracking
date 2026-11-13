@@ -10,11 +10,13 @@
 - Windows x64 GNU 交叉编译：通过。生成 PE32+ x86-64 GUI 可执行文件。
 - 简体中文 NSIS 安装包生成：通过，同时提供包含 WebView2Loader.dll 的便携包。安装包未签名，尚未进行 Windows 实机安装测试。
 - DLL 导入检查：除 Windows 系统库外，需要同目录的 WebView2Loader.dll，便携包一并提供。
+- 标签发布工作流 actionlint 检查通过；版本匹配、版本不匹配及缺少标签的检查通过。
+- 发布打包脚本已在 PowerShell 中验证，覆盖有/无配套 DLL 的 ZIP 内容及 SHA-256 校验；发布命令使用受控替身验证正式版、预发布和重复运行分支。
 
 真实快递100页面已在 Chromium 中打开并通过页面查询按钮提交官网示例单号，观测到“暂无物流轨迹”的真实返回。轨迹成功解析、国际件合并、单号匹配、人工验证及网页不支持的分支，使用受控页面测试数据验证。
 
 当前执行环境为 Linux，尚未在 Windows 实机运行验收；真实有效单号的成功查询、Windows Edge 的实际启动和人工验证流程，仍需在目标机器验证。没有把受控样例测试称为真实物流查询成功。
 
-Windows 原生构建及完整桌面模块检查由 .github/workflows/windows.yml 执行，最新结果见仓库的 GitHub Actions。
+Windows 原生构建及完整桌面模块检查由版本标签触发的 .github/workflows/windows.yml 执行，检查通过后发布 GitHub Release；普通提交和 PR 合并不触发。最新结果见仓库的 GitHub Actions。
 
 预览截图来自测试使用的合成样例数据，应用正常首次启动时运单列表为空。

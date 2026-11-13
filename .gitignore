@@ -7,4 +7,6 @@ playwright-report/
 *.log
 .DS_Store
 artifacts/
+release-assets/
+release-portable/
 *.tsbuildinfo

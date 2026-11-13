@@ -59,7 +59,22 @@ Windows 开发机安装：
 - 独立程序：src-tauri/target/release/package-tracking.exe
 - NSIS 安装包：src-tauri/target/release/bundle/nsis/*-setup.exe
 
-仓库包含 .github/workflows/windows.yml，可在 Windows runner 上测试、检查并构建安装包，产物作为 workflow artifact 保存；不会自动发布 release。
+### 发布版本
+
+仅推送以 v 开头的版本标签时触发 .github/workflows/windows.yml。普通分支提交、PR 和合并不会触发构建，也没有手动运行入口。
+
+发布前同步 package.json、package-lock.json、src-tauri/tauri.conf.json、src-tauri/Cargo.toml 和 src-tauri/Cargo.lock 中的项目版本并提交。标签必须与项目版本一致，例如当前版本为 0.1.0：
+
+    git tag v0.1.0
+    git push origin v0.1.0
+
+工作流会校验版本，执行测试和检查，在 Windows runner 上构建，然后自动创建同名 GitHub Release，生成发布说明并上传：
+
+- package-tracking-0.1.0-windows-x64-setup.exe：安装包。
+- package-tracking-0.1.0-windows-x64-portable.zip：便携版，包含程序和构建生成的配套 DLL（如有）。
+- SHA256SUMS.txt：下载文件的 SHA-256 校验值。
+
+带有预发布后缀的标签（如 v0.2.0-beta.1）会标记为预发布版本。同一标签的任务重新运行时，会更新已有 Release 的同名附件，不创建重复 Release。发布使用 GitHub Actions 自带的 GITHUB_TOKEN，无需额外配置发布密钥。
 
 仅预览界面：
 

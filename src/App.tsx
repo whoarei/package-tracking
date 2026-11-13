@@ -33,6 +33,7 @@ import {
   X,
 } from 'lucide-react';
 import * as api from './bridge';
+import { version as appVersion } from '../package.json';
 import {
   activePhases,
   carriers,
@@ -286,7 +287,7 @@ export default function App() {
               {api.desktop ? 'Windows 桌面版' : '浏览器预览'}
             </span>
             <span className="topbar-separator" />
-            <span className="version">v0.1.0</span>
+            <span className="version">v{appVersion}</span>
           </div>
         </header>
         <main>
